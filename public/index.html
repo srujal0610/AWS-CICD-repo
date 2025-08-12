@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Node App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        .content {
+            font-size: 18px;
+            color: #34495e;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to My Node.js App!</h1>
+    <div class="content">
+        <p id="dynamic-content">This is the initial content. To change it, edit the content.js file and rebuild the
+            Docker image.</p>
+    </div>
+
+    <!-- Load JavaScript after the HTML so it can update the DOM -->
+    <script src="content.js"></script>
+</body>
+
+</html>
