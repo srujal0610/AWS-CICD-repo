@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 715841355602.dkr.ecr.ap-south-1.amazonaws.com
+      - REPO_URI=715841355602.dkr.ecr.ap-south-1.amazonaws.com/sample-node-app
+      - IMAGE_TAG=$(date +%Y%m%d%H%M%S)
+  build:
+    commands:
+      - echo Building the Docker image...
+      - docker build -t $REPO_URI:$IMAGE_TAG .
+      - docker push $REPO_URI:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Deploying to EC2...
+      - ssh -o StrictHostKeyChecking=no ec2-user@43.204.24.62 "docker pull $REPO_URI:$IMAGE_TAG && docker stop sample-node-app || true && docker rm sample-node-app || true && docker run -d -p 3000:3000 --name sample-node-app $REPO_URI:$IMAGE_TAG"
+artifacts:
+  files:
+    - '**/*'
