@@ -21,7 +21,7 @@ phases:
       - aws ssm get-parameter --name "/codebuild/ssh-key" --with-decryption --query "Parameter.Value" --output text > /tmp/codebuild-key
       - chmod 600 /tmp/codebuild-key
       # SSH into EC2 and deploy
-      - ssh -o StrictHostKeyChecking=no -i /tmp/codebuild-key ec2-user@<EC2_PUBLIC_IP> "
+      - ssh -o StrictHostKeyChecking=no -i /tmp/codebuild-key ec2-user@43.204.24.62 "
           aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 715841355602.dkr.ecr.ap-south-1.amazonaws.com &&
           docker pull $REPO_URI:latest &&
           docker stop sample-node-app || true &&
