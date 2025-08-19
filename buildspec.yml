@@ -15,6 +15,6 @@ phases:
   post_build:
     commands:
       - echo Writing imagedefinitions.json...
-      - printf '[{"name":"<ecs-container-name>","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"prod-container","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
